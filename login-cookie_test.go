@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	// "fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
