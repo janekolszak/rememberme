@@ -1,7 +1,6 @@
 package rememberme
 
 import (
-	"errors"
 	"net/http"
 	"time"
 )
@@ -18,7 +17,7 @@ type Rememberme struct {
 func (c *Rememberme) Check(r *http.Request) (selector, user string, err error) {
 	var now = time.Now()
 
-	l, err := helpers.GetLoginCookie(r, rememberMeCookieName)
+	l, err := GetLoginCookie(r, rememberMeCookieName)
 	if err != nil {
 		return
 	}
@@ -46,7 +45,7 @@ func (c *Rememberme) Check(r *http.Request) (selector, user string, err error) {
 }
 
 func (c *Rememberme) SetCookie(w http.ResponseWriter, r *http.Request, user string) (err error) {
-	l := helpers.LoginCookie{
+	l := LoginCookie{
 		CookieName: rememberMeCookieName,
 		MaxAge:     c.MaxAge,
 	}
@@ -68,7 +67,7 @@ func (c *Rememberme) SetCookie(w http.ResponseWriter, r *http.Request, user stri
 }
 
 func (c *Rememberme) UpdateCookie(w http.ResponseWriter, r *http.Request, selector, user string) (err error) {
-	l := helpers.LoginCookie{
+	l := LoginCookie{
 		Selector:   selector,
 		CookieName: rememberMeCookieName,
 		MaxAge:     c.MaxAge,
