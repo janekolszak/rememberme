@@ -1,0 +1,19 @@
+language: go
+go_import_path: github.com/janekolszak/rememberme
+go:
+  - 1.6
+
+install:
+  - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
+  - wget -qO- https://download.rethinkdb.com/apt/pubkey.gpg | sudo apt-key add -
+  - sudo apt-get update
+  - sudo apt-get install rethinkdb
+  - sudo add-apt-repository ppa:masterminds/glide -y && sudo apt-get update
+  - sudo apt-get install glide rethinkdb
+  - glide install
+
+before_script:
+  - rethinkdb --daemon
+
+script:
+  - go test $(glide nv)
