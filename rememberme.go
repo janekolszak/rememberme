@@ -1,9 +1,7 @@
-package cookie
+package rememberme
 
 import (
-	"github.com/janekolszak/idp/core"
-	"github.com/janekolszak/idp/helpers"
-
+	"errors"
 	"net/http"
 	"time"
 )
@@ -12,12 +10,12 @@ const (
 	rememberMeCookieName = "remember"
 )
 
-type CookieAuth struct {
+type Rememberme struct {
 	Store  Store
 	MaxAge time.Duration
 }
 
-func (c *CookieAuth) Check(r *http.Request) (selector, user string, err error) {
+func (c *Rememberme) Check(r *http.Request) (selector, user string, err error) {
 	var now = time.Now()
 
 	l, err := helpers.GetLoginCookie(r, rememberMeCookieName)
@@ -34,12 +32,12 @@ func (c *CookieAuth) Check(r *http.Request) (selector, user string, err error) {
 	}
 
 	if expires.Before(now) {
-		err = core.ErrorSessionExpired
+		err = ErrorSessionExpired
 		return
 	}
 
 	if !l.Check(hash) {
-		err = core.ErrorBadRequest
+		err = ErrorBadRequest
 	}
 
 	selector = l.Selector
@@ -47,7 +45,7 @@ func (c *CookieAuth) Check(r *http.Request) (selector, user string, err error) {
 	return
 }
 
-func (c *CookieAuth) SetCookie(w http.ResponseWriter, r *http.Request, user string) (err error) {
+func (c *Rememberme) SetCookie(w http.ResponseWriter, r *http.Request, user string) (err error) {
 	l := helpers.LoginCookie{
 		CookieName: rememberMeCookieName,
 		MaxAge:     c.MaxAge,
@@ -69,7 +67,7 @@ func (c *CookieAuth) SetCookie(w http.ResponseWriter, r *http.Request, user stri
 	return
 }
 
-func (c *CookieAuth) UpdateCookie(w http.ResponseWriter, r *http.Request, selector, user string) (err error) {
+func (c *Rememberme) UpdateCookie(w http.ResponseWriter, r *http.Request, selector, user string) (err error) {
 	l := helpers.LoginCookie{
 		Selector:   selector,
 		CookieName: rememberMeCookieName,

@@ -1,6 +1,8 @@
-package cookie
+package rememberme
 
 import (
+	"github.com/janekolszak/rememberme/store/sqlstore"
+
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -21,11 +23,11 @@ var (
 func TestSetUpdateCookie(t *testing.T) {
 	assert := assert.New(t)
 
-	store, err := NewDBStore("sqlite3", testFileName)
+	store, err := sqlstore.New("sqlite3", testFileName)
 	assert.Nil(err)
 	defer store.Close()
 
-	c := CookieAuth{
+	c := Rememberme{
 		Store:  store,
 		MaxAge: time.Minute * 1,
 	}

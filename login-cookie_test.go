@@ -1,4 +1,4 @@
-package helpers
+package rememberme
 
 import (
 	"github.com/stretchr/testify/assert"

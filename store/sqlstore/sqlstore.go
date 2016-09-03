@@ -1,4 +1,4 @@
-package cookie
+package sqlstore
 
 import (
 	"database/sql"
@@ -11,7 +11,7 @@ type DBStore struct {
 	getStmt *sql.Stmt
 }
 
-func NewDBStore(driverName, databaseSourceName string) (*DBStore, error) {
+func New(driverName, databaseSourceName string) (*DBStore, error) {
 	var s = new(DBStore)
 
 	var err error
@@ -26,7 +26,7 @@ func NewDBStore(driverName, databaseSourceName string) (*DBStore, error) {
 	}
 
 	sqlStmt := `
-		CREATE TABLE  IF NOT EXISTS cookieauth (selector   VARCHAR(20) NOT NULL PRIMARY KEY,
+		CREATE TABLE  IF NOT EXISTS rememberme (selector   VARCHAR(20) NOT NULL PRIMARY KEY,
 					                            validator  TEXT NOT NULL,
 					                            user       TEXT NOT NULL,
 					                            expiration DATETIME);`
@@ -37,7 +37,7 @@ func NewDBStore(driverName, databaseSourceName string) (*DBStore, error) {
 	}
 
 	// Prepare statements
-	s.getStmt, err = s.db.Prepare("SELECT validator, user, expiration FROM cookieauth WHERE selector = ?")
+	s.getStmt, err = s.db.Prepare("SELECT validator, user, expiration FROM rememberme WHERE selector = ?")
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (s *DBStore) Insert(user, hash string, expiration time.Time) (selector stri
 		err = tx.Commit()
 	}()
 
-	stmt, err := tx.Prepare("INSERT INTO cookieauth(selector, validator, user, expiration) values(?, ?, ?, ?)")
+	stmt, err := tx.Prepare("INSERT INTO rememberme(selector, validator, user, expiration) values(?, ?, ?, ?)")
 	if err != nil {
 		return
 	}
@@ -90,7 +90,7 @@ func (s *DBStore) Update(selector, user, hash string, expiration time.Time) (err
 		err = tx.Commit()
 	}()
 
-	stmt, err := tx.Prepare("UPDATE cookieauth SET validator=?, expiration =? WHERE selector=?")
+	stmt, err := tx.Prepare("UPDATE rememberme SET validator=?, expiration =? WHERE selector=?")
 	if err != nil {
 		return
 	}
@@ -119,7 +119,7 @@ func (s *DBStore) DeleteSelector(selector string) (err error) {
 		err = tx.Commit()
 	}()
 
-	stmt, err := tx.Prepare("DELETE FROM cookieauth WHERE selector=?")
+	stmt, err := tx.Prepare("DELETE FROM rememberme WHERE selector=?")
 	if err != nil {
 		return
 	}
@@ -143,7 +143,7 @@ func (s *DBStore) DeleteUser(user string) (err error) {
 		err = tx.Commit()
 	}()
 
-	stmt, err := tx.Prepare("DELETE FROM cookieauth WHERE user=?")
+	stmt, err := tx.Prepare("DELETE FROM rememberme WHERE user=?")
 	if err != nil {
 		return
 	}

@@ -1,4 +1,4 @@
-package cookie
+package rememberme
 
 import "time"
 
