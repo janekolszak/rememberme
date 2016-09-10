@@ -1,6 +1,10 @@
 # RememberMe [![Build Status](https://travis-ci.org/janekolszak/rememberme.svg?branch=master)](https://travis-ci.org/janekolszak/rememberme)
 Go implementation of persistent login cookies. The implementation idea is described [here](https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence#title.2)
 
+The library uses [gorilla sessions](http://www.gorillatoolkit.org/pkg/sessions) for saving cookies on user site. Part of the persistant login information is stored on a server side in a dedicated Store. There are two store implementations available out of the box:
+- SQL database store
+- RethinkDB store
+
 ## Usage
 ### Initialization
 ```go
