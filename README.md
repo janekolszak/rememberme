@@ -15,7 +15,7 @@ if err != nil {
 }
 
 // Create Rememberme
-rememberme = &rememberme.New{
+auth = &rememberme.New{
 	Store:  dbCookieStore,
 	MaxAge: time.Second * 30,
 }
@@ -25,10 +25,10 @@ rememberme = &rememberme.New{
 ```go
 func(w http.ResponseWriter, r *http.Request) {
 
-	selector, userid, err := cookieProvider.Check(r)
+	selector, userid, err := auth.Check(r)
 	if err == nil {
 		// Authenticated with a RememberMe Cookie
-		err = cookieProvider.UpdateCookie(w, r, selector, userid)
+		err = auth.UpdateCookie(w, r, selector, userid)
 		if err != nil {
 			panic(err)
 		}
@@ -39,7 +39,7 @@ func(w http.ResponseWriter, r *http.Request) {
 			// userid = Authenticated User ID
 
 			// Save the RememberMe cookie
-			err = cookieProvider.SetCookie(w, r, userid)
+			err = auth.SetCookie(w, r, userid)
 			if err != nil {
 				panic(err)
 			}
