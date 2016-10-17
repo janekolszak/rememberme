@@ -5,6 +5,11 @@ The library uses [gorilla sessions](http://www.gorillatoolkit.org/pkg/sessions) 
 - SQL database store
 - RethinkDB store
 
+## Installation
+```
+go get -u github.com/janekolszak/rememberme
+```
+
 ## Usage
 ### Initialization
 ```go
