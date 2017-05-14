@@ -3,6 +3,7 @@ go_import_path: github.com/janekolszak/rememberme
 go:
   - 1.6
   - 1.7
+  - 1.8
 
 install:
   - source /etc/lsb-release && echo "deb http://download.rethinkdb.com/apt $DISTRIB_CODENAME main" | sudo tee /etc/apt/sources.list.d/rethinkdb.list
