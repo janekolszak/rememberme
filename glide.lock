@@ -1,43 +1,17 @@
-hash: 86825e464f0bbbbfe777a6e032f021f44ee488c762a1106237037b786d0c951b
-updated: 2016-09-03T18:29:44.888050704+02:00
+hash: b1ea2d2c4f7c7b4bf2be7bdaf4ee1af356fbb1f973d4a6e0809b2f82156d8f42
+updated: 2019-03-25T15:01:42.117786975+01:00
 imports:
-- name: github.com/cenk/backoff
-  version: cdf48bbc1eb78d1349cbda326a4a037f7ba565c6
-- name: github.com/golang/protobuf
-  version: 1f49d83d9aa00e6ce4fc8258c71cc7786aec968a
-  subpackages:
-  - proto
 - name: github.com/gorilla/context
   version: 08b5f424b9271eedf6f9f0ce86cb9396ed337a42
 - name: github.com/gorilla/securecookie
   version: c13558c2b1c44da35e0eb043053609a5ba3a1f19
 - name: github.com/gorilla/sessions
   version: 7ab2742f1e374be6675e9a4eca54fe529221ae3a
-- name: github.com/hailocab/go-hostpool
-  version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
 - name: github.com/satori/go.uuid
   version: 879c5887cd475cd7864858769793b2ceb0d44feb
-- name: github.com/Sirupsen/logrus
-  version: 3ec0642a7fb6488f65b06f9040adc67e3990296a
-- name: golang.org/x/crypto
-  version: 9e590154d2353f3f5e1b24da7275686040dcf491
-  subpackages:
-  - pbkdf2
-- name: golang.org/x/sys
-  version: a646d33e2ee3172a661fc09bca23bb4889a41bc8
-  subpackages:
-  - unix
-- name: gopkg.in/dancannon/gorethink.v2
-  version: e75f34b0817d1ed1a4b967975ccf5fac9535dbc2
-  subpackages:
-  - encoding
-  - ql2
-  - types
-- name: gopkg.in/fatih/pool.v2
-  version: 20a0a429c5f93de45c90f5f09ea297c25e0929b3
 testImports:
 - name: github.com/davecgh/go-spew
-  version: 6cf5744a041a0022271cefed95ba843f6d87fd51
+  version: 2df174808ee097f90d259e432cc04442cf60be21
   subpackages:
   - spew
 - name: github.com/janekolszak/rememberme
@@ -47,7 +21,7 @@ testImports:
 - name: github.com/mattn/go-sqlite3
   version: 3b3f1d01b2696af5501697c35629048c227586ab
 - name: github.com/pmezard/go-difflib
-  version: 792786c7400a136282c1664665ae0a8db921c6c2
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
   subpackages:
   - difflib
 - name: github.com/stretchr/testify

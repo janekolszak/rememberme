@@ -48,7 +48,11 @@ func New(driverName, databaseSourceName string) (*DBStore, error) {
 func (s *DBStore) Insert(user, hash string, expiration time.Time) (selector string, err error) {
 
 	// TODO: Database should generate the selector, but is can't be sequential
-	uniqueID := uuid.NewV1()
+	uniqueID, err := uuid.NewV1()
+	if err != nil {
+		return
+	}
+
 	selector = uniqueID.String()
 
 	tx, err := s.db.Begin()
